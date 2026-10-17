@@ -22,8 +22,16 @@ export class BoardsService {
   //   });
   // }
 
-  findAll() {
-    return this.prisma.board.findMany();
+  findAll(userId: number) {
+    return this.prisma.board.findMany({
+      where: {
+        userId,
+      },
+      select: {
+        id: true,
+        title: true,
+      },
+    });
   }
 
   async findOne(id: number) {
