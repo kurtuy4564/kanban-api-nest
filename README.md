@@ -31,6 +31,14 @@
 $ npm install
 ```
 
+Create a `.env` file in the project root and set the PostgreSQL connection string:
+
+```dotenv
+DATABASE_URL="postgresql://USER:PASSWORD@HOST:5432/DATABASE?schema=public"
+```
+
+The application loads this file when it starts. In production, provide `DATABASE_URL` through the environment instead.
+
 ## Compile and run the project
 
 ```bash

@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateBoardDto } from './dto/create-board.dto.js';
+import { PrismaService } from '../prisma/prisma.service.js';
 
 export interface Board {
   id: number;
@@ -8,26 +9,27 @@ export interface Board {
 
 @Injectable()
 export class BoardsService {
-  private boards: Board[] = [];
-  private nextId = 1;
+  constructor(private readonly prisma: PrismaService) {}
 
-  create(dto: CreateBoardDto): Board {
-    const board: Board = {
-      id: this.nextId++,
-      title: dto.title,
-    };
+  // create(dto: CreateBoardDto) {
+  //   return this.prisma.board.create({
+  //     data: {
+  //       title: dto.title,
+  //       user: {
+  //         connect: { id: currentUserId }
+  //       }
+  //     },
+  //   });
+  // }
 
-    this.boards.push(board);
-
-    return board;
+  findAll() {
+    return this.prisma.board.findMany();
   }
 
-  findAll(): Board[] {
-    return this.boards;
-  }
-
-  findOne(id: number): Board {
-    const board = this.boards.find((board) => board.id === id);
+  async findOne(id: number) {
+    const board = await this.prisma.board.findUnique({
+      where: { id },
+    });
 
     if (!board) {
       throw new NotFoundException('Доска не найдена');

@@ -14,10 +14,10 @@ import { BoardsService } from './boards.service.js';
 export class BoardsController {
   constructor(private readonly boardsService: BoardsService) {}
 
-  @Post()
-  create(@Body() dto: CreateBoardDto) {
-    return this.boardsService.create(dto);
-  }
+  // @Post()
+  // create(@Body() dto: CreateBoardDto) {
+  //   return this.boardsService.create(dto);
+  // }
 
   @Get()
   findAll() {
