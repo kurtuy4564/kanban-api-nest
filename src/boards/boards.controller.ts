@@ -14,7 +14,7 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard.js';
 import { CurrentUser } from '../auth/decorators/current-user.decorator.js';
 
 type JwtPayload = {
-  sub: string | number;
+  sub: number;
   email: string;
 };
 

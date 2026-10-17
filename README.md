@@ -65,6 +65,23 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+E2E tests use a separate PostgreSQL database and never fall back to `DATABASE_URL` from `.env`. Create `.env.test` in the project root:
+
+```dotenv
+TEST_DATABASE_URL="postgresql://USER:PASSWORD@HOST:5432/kanban_test?schema=public"
+TEST_JWT_SECRET="e2e-test-only-secret"
+```
+
+Apply the migrations to that test database before running the tests. In PowerShell, set `DATABASE_URL` to the same test connection string and run:
+
+```powershell
+$env:DATABASE_URL = "postgresql://USER:PASSWORD@HOST:5432/kanban_test?schema=public"
+npx prisma migrate deploy --config prisma7.config.ts
+npm run test:e2e
+```
+
+The e2e suite creates uniquely named users and removes only those users and their boards after the run. Never point `TEST_DATABASE_URL` at a production database.
+
 ## Deployment
 
 When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
