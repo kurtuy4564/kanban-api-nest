@@ -6,6 +6,7 @@ import { BoardsModule } from './boards/boards.module.js';
 import { PrismaModule } from './prisma/prisma.module.js';
 import { AuthModule } from './auth/auth.module.js';
 import { ConfigModule } from '@nestjs/config';
+import { ColumnsModule } from './columns/columns.module.js';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -22,6 +23,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     BoardsModule,
     PrismaModule,
     AuthModule,
+    ColumnsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
