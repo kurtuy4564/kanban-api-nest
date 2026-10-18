@@ -24,9 +24,9 @@ export class JwtAuthGuard implements CanActivate {
     const request = context.switchToHttp().getRequest<AuthenticatedRequest>();
 
     const authorization = request.headers.authorization;
-    const [type, token] = authorization?.split(' ') ?? [];
+    const token = authorization?.match(/^\s*Bearer\s+(\S+)\s*$/i)?.[1];
 
-    if (type !== 'Bearer' || !token) {
+    if (!token) {
       throw new UnauthorizedException('Требуется токен авторизации');
     }
 
